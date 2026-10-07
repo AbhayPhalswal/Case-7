@@ -1,0 +1,19 @@
+DRAFT PILOT v1 — FreshNest flexible replenishment cadence
+
+Target: first-order customers who were not shown a choose-cadence offer (subscription_offer = Not offered or Fixed 30-day), with no recorded packaging issue (packaging_issue = None), first order not returned, and estimated_consumption_days <= 60. 76 of 180 records (48 Not offered + 28 Fixed 30-day); their current 60-day second-purchase rate is 40/76 = 52.6%.
+
+Intervention: after the first delivery, offer an opt-in refill plan. The customer chooses a cadence of 30, 45 or 60 days (pre-selected to the option nearest their estimated consumption days), and can pause, skip or change cadence at any time. A reminder is sent before each scheduled refill. No discount or credit is attached. Channels: email, WhatsApp and website account. Enrolment for 8 weeks.
+
+Customers with a recorded packaging issue (52/180) do not get the plan offer; they get verified-issue recovery instead (replacement or INR 65 credit).
+
+Why: choose-cadence customers bought again at 40/49 = 81.6% vs 21/47 = 44.7% (Fixed 30-day) and 34/84 = 40.5% (Not offered), about +39 pts within channel x issue strata. Packaging issue 19/52 = 36.5% vs 76/128 = 59.4%.
+
+Budget: assume 2,000 eligible customers over the pilot; 50% randomized to the plan offer = 1,000 treated; incentive cost INR 0 (no credit). Recovery: about 29% of first-time customers have an issue (52/180); assume 800 cases x INR 65 = INR 52,000. Messaging, plan set-up and analytics: assume INR 3 lakh. Total about INR 3.5 lakh, within INR 11 lakh.
+
+Experiment: 50/50 randomization of eligible customers to plan offer vs current experience; 60-day outcome window.
+
+KPIs: primary = second purchase within 60 days; leading = plan sign-up rate; guardrail = contribution margin per customer not below control.
+
+Decision rules: scale if treatment beats control by >= 10 percentage points; revise if 5-10 points; stop if < 5 points.
+
+Risks: (1) low plan sign-up without an incentive — owner Growth Director; (2) packaging issues on plan shipments — owner Operations Head.

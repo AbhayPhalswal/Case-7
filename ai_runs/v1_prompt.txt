@@ -1,0 +1,1 @@
+I've pasted FreshNest's customer data (180 customers) and five company documents below. Analyse why so many customers don't make a second purchase within 60 days. Give me the three most important findings with numbers, the main limitations of the data, and what FreshNest should do about it.

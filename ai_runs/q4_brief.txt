@@ -1,0 +1,18 @@
+Q4 DECISION BRIEF — FreshNest replenishment pilot (team-validated inputs)
+
+DECISION: Choose ONE replenishment pilot that improves second purchase within 60 days while preserving contribution margin and sustainability goals. It must be testable, financially bounded (INR 11 lakh total; average incremental incentive <= INR 65, Doc C) and feasible under Doc D (no blanket 30% discount; subscription must permit pause and cadence change; packaging redesign out of scope; verified-issue recovery allowed; anything outside these = later-stage option).
+
+TEAM-VALIDATED FINDINGS (recomputed in Python from all 180 rows; overall 95/180 = 52.8% bought again within 60 days)
+F1 Offer type: Choose cadence 40/49 = 81.6% | Fixed 30-day 21/47 = 44.7% | Not offered 34/84 = 40.5%. Gap holds within channel x packaging-issue strata (about +39 pts). Observational: how offers were assigned is not documented.
+F2 Packaging: any recorded issue 19/52 = 36.5% vs none 76/128 = 59.4% (-22.8 pts). Damaged outer pack 7/22, minor leak 7/18, wrong pack size 5/12. Doc B: a leak damages trust beyond the lost product.
+F3 Reorder timing: the system recommendation takes only 30/45/60 days while estimated consumption runs 12-83 days. Recommendation within +/-7 days of consumption 31/52 = 59.6%; >7 days early 32/65 = 49.2%; >7 days late 32/63 = 50.8%. Doc B: customers dislike refills arriving before the pack is used.
+Discounts: 0% 5/14 = 35.7%, 10% 20/41 = 48.8%, 20% 36/58 = 62.1%, 30% 24/51 = 47.1%, 40% 10/16 = 62.5% (no steady pattern; case tension: larger first-order discounts can select deal-seekers).
+Channel: Marketplace 36/76 = 47.4%, Social commerce 23/40 = 57.5%, Website 36/64 = 56.3%. Doc B: some marketplace customers do not recognize the brand's direct subscription offer.
+Not in evidence: order value, contribution margin, unit costs of messaging/replacement/build, offer acceptance (offer shown is not the same as subscribed), weekly customer volume.
+
+CANDIDATE STRATEGIES (from the case brief)
+A. Flexible replenishment cadence — after the first order, offer an opt-in refill plan where the customer chooses the cadence, with pause, skip and cadence change at any time.
+B. Packaging-issue recovery — proactively verify recorded packaging issues and recover (replacement or credit, within the INR 65 average cap) before any reorder prompt.
+C. Segmented subscription or reorder reminder — reorder reminders/offers timed to each segment's estimated consumption (by channel, product, consumption days), optionally with a capped incentive (<= INR 65).
+
+SCORING SCALE (1-5, 5 = best): Impact on 60-day second purchase | Cost (5 = cheapest / least margin leakage) | Feasibility under Doc D | Risk (5 = lowest failure risk) | Case-specific criterion: Refill-timing fit (does it put the refill in the customer's hands when the pack actually runs out, avoiding early-refill waste — Doc B point 1?)

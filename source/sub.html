@@ -1,0 +1,152 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Group 23 Case 07 FreshNest</title><link rel="stylesheet" href="style.css"></head><body>
+<section class="page">
+<h1>FreshNest · Case 07 — Replenishment Without Margin Erosion</h1>
+<div class="team"><b>Group 23</b> · Abhay Phalswal · Harsha Ranpara · Raghav Sharma</div>
+<div class="disclose">Evidence: Case_07_Dataset.xlsx (180 synthetic rows + dictionary) and Documents A–E only; no external data. Every rate was recomputed in Python from raw rows and is shown as k/n. AI used: Claude (Anthropic), run in fresh isolated sessions for Q3 prompts, Q4 role reviews and Q5 critique; the team verified every AI number against the data. Team-set thresholds and assumptions are labelled <b>[proposal]</b>.</div>
+<div class="kpis">
+<div class="kpi"><div class="v">52.8%</div><div class="l">bought again ≤60 days: 95/180</div></div>
+<div class="kpi"><div class="v">81.6% vs 40.5%</div><div class="l">choose-cadence 40/49 vs not offered 34/84 (association)</div></div>
+<div class="kpi"><div class="v">76 / 180</div><div class="l">primary target (42.2%); baseline 40/76 = 52.6%</div></div>
+<div class="kpi"><div class="v">₹3.3–6.6 L</div><div class="l">expected spend vs ₹11 L cap; incentive ₹0 / ≤₹65</div></div>
+</div>
+<h2>Executive summary &amp; Q6 · Final board recommendation <span class="marks">Q6 · 15 marks</span></h2>
+<div class="decision"><b>Decision:</b> run a 3-arm randomized pilot that tests a <b>flexible refill plan</b> (customer-chosen cadence defaulted to estimated consumption; pause, skip, change any time) against a <b>consumption-timed reminder only</b> and today's experience — with <b>no discount</b>. Customers with a recorded packaging issue get <b>verified-issue recovery first</b>. Scale only if a randomized lift clears break-even without guardrail breaches.</div>
+<table>
+<tr><td class="lab">Target</td><td>subscription_offer ∈ {Not offered, Fixed 30-day} AND packaging_issue = "None" AND first_order_returned = 0 AND estimated_consumption_days ≤ 60 → <b>76/180 (42.2%, CI 35.2–49.5)</b>; 48 Not offered + 28 Fixed; 34 marketplace, 26 website, 16 social. <b>Exclusions</b> (waterfall 180→131→93→89→76): already offered choose-cadence (49), packaging issue (38 → recovery cell), returned (4 → service follow-up), consumption &gt;60 d (13 → later longer-cadence test).</td></tr>
+<tr><td class="lab">Intervention</td><td><b>Arm P – Plan:</b> after first delivery, opt-in refill plan; default cadence = estimated consumption days; reminder 5 days before each dispatch with one-click skip/pause/change (Doc D). <b>Arm R – Reminder:</b> one reorder reminder 5 days before estimated run-out, no subscription. <b>Control:</b> current experience. Channels: email, WhatsApp, website account; marketplace buyers only where consented contact exists, message names FreshNest as the brand they bought (Doc B3). <b>Recovery cell:</b> issue customers → verify → replacement or credit (avg ≤ ₹65) → randomized 1:1 recovery-only vs recovery + plan offer. Enrol until 470 per arm (no volume data in evidence, so duration is set by sample, not weeks) + 60-day follow-up.</td></tr>
+<tr><td class="lab">Budget logic</td><td><b>Screening:</b> 3 × 470 = 1,410 eligible ÷ (76/180) = 3,339 first-order customers screened. <b>Incentives:</b> Arms P and R = ₹0. Recovery: 3,339 × 52/180 = 965 issue cases × 50–100% verified <b>[assumption]</b> × ₹65 = <b>₹0.31–0.63 L</b>. <b>Fixed</b> (pause/cadence set-up, messaging, analytics): not in evidence → ring-fenced <b>₹3–6 L [proposal]</b>; Ops quote ≤ ₹6 L is a launch gate. <b>Total ₹3.3–6.6 L ≤ ₹11 L</b>; ≥ ₹4.4 L unspent reserve. <b>Break-even:</b> required lift (pts) = 100 × variable cost per treated customer ÷ contribution margin per order (Finance to supply; not in evidence).</td></tr>
+<tr><td class="lab">Experiment</td><td>Individual randomization 1:1:1, stratified by channel × product family. 470/arm detects a 10-pt lift (52.6% → 62.6%) at 80% power, two-sided α = 0.025 per comparison (2 comparisons vs control); CI half-width ≈ ±6.4 pts. Decision window: 60 days after the last enrolment (90-day readout pre-registered).</td></tr>
+<tr><td class="lab">KPIs</td><td><b>Primary:</b> kept second order ≤ 60 days of first delivery (voluntary, or scheduled and not cancelled/returned within 7 days). <b>Leading:</b> plan opt-in rate; reminder click-through; share of plans with cadence within ±7 d of consumption. <b>Guardrails:</b> packaging-issue rate on plan shipments ≤ control; returns/cancellations ≤ control; contribution margin per customer ≥ control.</td></tr>
+<tr><td class="lab">Decision rules [proposal]</td><td><b>Scale</b> P (or R if R is within 3 pts of P — cheaper, no subscription build) if lift ≥ 10 pts, 95% CI lower bound &gt; break-even, all guardrails hold. <b>Revise</b> if lift 0–10 pts, or 60-day null but 90-day positive, or opt-in &lt; 15% → change default cadence/message, re-test 4 weeks. <b>Stop</b> if lift ≤ 0, or plan-shipment issue rate &gt; control, or margin per customer &lt; control.</td></tr>
+<tr><td class="lab">Risks · owners</td><td>① The 41-pt gap is selection, not effect (offer assignment undocumented) → decide only on randomized control; no forecast from 81.6% — <b>Growth Director</b>. ② Plan shipments repeat packaging failures (52/180 had issues; Doc B2) → auto-recovery on every issue; issue-rate stop rule — <b>Operations Head</b>. ③ Margin leakage → no discount in P/R; credit only for verified issues, avg ≤ ₹65 — <b>Finance Head</b>.</td></tr>
+</table>
+<p class="small"><b>Trade-off:</b> we give up a fast discount-led push for a slower, margin-safe test that tells us whether the plan or simply better timing works. <b>Remaining uncertainty:</b> the causal size of the cadence effect and margin per order. <b>Next step (week 0):</b> Ops confirms pause/cadence capability and quote; Finance supplies margin per order; Growth confirms consented contact lists.</p>
+<div class="foot"><span>Group 23 · Case 07 FreshNest</span><span>Page 1 of 6</span></div>
+</section>
+
+<section class="page">
+<h2>Q1 · Diagnosis — three quantified findings <span class="marks">20 marks</span></h2>
+<table>
+<tr><th>#</th><th>Finding (comparison · k/n · rate · gap)</th><th>Evidence types</th><th>Decision meaning</th></tr>
+<tr><td>1</td><td><b>Choice of cadence goes with much higher repurchase.</b> Choose cadence 40/49 = 81.6% vs Fixed 30-day 21/47 = 44.7% vs Not offered 34/84 = 40.5% → +41.2 pts vs not offered; a <i>fixed</i> plan is only +4.2 pts. Gap persists within channel × issue strata (Mantel-Haenszel +38.6 pts) and in an adjusted logistic model (OR 10.6).</td><td>Data + constraint (Doc D: pause &amp; cadence change required)</td><td>Flexibility, not "a subscription", is the lever to test.</td></tr>
+<tr><td>2</td><td><b>Recorded packaging issues go with lower repurchase.</b> Any issue 19/52 = 36.5% vs none 76/128 = 59.4% → −22.8 pts (damaged outer pack 7/22, minor leak 7/18*, wrong size 5/12*). Among customers without a cadence choice: 8/38 = 21.1% vs 47/93 = 50.5%.</td><td>Data + research (Doc B2: a leak damages trust) + constraint (Doc D: recovery allowed, no redesign)</td><td>Repair trust before any reorder push → separate recovery path.</td></tr>
+<tr><td>3</td><td><b>Mistimed system reorder dates go with lower repurchase — but only where the customer cannot set the cadence.</b> recommended_reorder_days is only 30/45/60 while consumption runs 12–83 d. Among the 131 without a cadence choice: within ±7 d of consumption 25/45 = 55.6% vs &gt;7 d off 30/86 = 34.9% → −20.7 pts; direction holds at ±5/±10/±15 d (gaps 14.7–31.9). Among choose-cadence customers timing makes no difference (6/7* vs 34/42).</td><td>Data + research (Doc B1: refills before the pack is used are disliked)</td><td>Default cadence should follow consumption, not the 30/45/60 grid.</td></tr>
+</table>
+<p class="small">* n &lt; 20, low confidence. 95% Wilson CIs in appendix.</p>
+<h3>Two material dataset limitations</h3>
+<ul><li><b>Not randomized, small, synthetic.</b> Offer assignment is undocumented, so Finding 1 may reflect who was shown the offer; choose-cadence cells by channel × issue hold only 4–16 customers (social commerce 13/13). Observables are balanced (mean discount 20.2/20.2/21.4%, satisfaction 7.57/7.62/7.59) but unobservables are not.</li>
+<li><b>Margin-blind.</b> No order value, contribution margin, unit costs, offer acceptance or weekly volume — margin impact and break-even cannot be computed from the data.</li></ul>
+<h3>Causality boundary — claims the evidence does not justify</h3>
+<p>"Bigger first-order discounts create loyalty": 20% → 36/58 = 62.1% but 30% → 24/51 = 47.1% and 40% → 10/16* = 62.5%; no steady pattern and not significant after adjustment (z = 1.3). Deal-seekers may self-select (case tension). Equally, "showing choose-cadence will raise repurchase by 41 pts" is an association, not an effect.</p>
+<h3>Data-definition issues that could change the decision</h3>
+<ul><li><b>Offer shown ≠ subscribed.</b> If scheduled deliveries count as a second purchase, part of 81.6% is mechanical → KPI counts only <i>kept</i> orders.</li>
+<li><b>60-day window vs consumption.</b> 30/180 need &gt;60 d to finish a pack (13/30 = 43.3%); "no purchase" may mean "not needed yet" → excluded from the 60-day target.</li>
+<li><b>packaging_issue holds the text "None"</b> (128 rows); default pandas reads it as missing — a tooling trap we checked for.</li></ul>
+<h2>Q2 · Prioritization <span class="marks">10 marks</span></h2>
+<p><b>Primary target — "issue-free first-timers never offered a cadence choice"</b>: subscription_offer ∈ {Not offered, Fixed 30-day} · packaging_issue = "None" · first_order_returned = 0 · estimated_consumption_days ≤ 60 → <b>76/180 records (42.2%)</b>, repurchase 40/76 = 52.6% (CI 41.6–63.5). <b>Why:</b> they have never been offered the flexible option linked to Finding 1; 47/76 have a system reorder date &gt;7 d off consumption (Finding 3); no unresolved trust problem; they need a refill inside the 60-day window; no discount needed.</p>
+<table><tr><th>Group that should NOT get the same intervention</th><th>Evidence</th><th>What they get instead</th></tr>
+<tr><td>Recorded packaging issue (52/180)</td><td>19/52 = 36.5%; Doc B2</td><td>Verified recovery first; then randomized plan offer</td></tr>
+<tr><td>Returned first order (10/180)</td><td>3/10* = 30.0%</td><td>Service follow-up, no reorder push</td></tr>
+<tr><td>Consumption &gt;60 d (30/180)</td><td>13/30 = 43.3%; 60-day KPI cannot judge them</td><td>Later longer-cadence test (75/90 d)</td></tr></table>
+<p class="small"><b>Guardrails:</b> opt-in only, never auto-enrol; pause/skip/change any time (Doc D); no blanket discount (Doc D); marketplace contact only with consent.</p>
+<div class="foot"><span>Group 23 · Case 07 FreshNest</span><span>Page 2 of 6</span></div>
+</section>
+
+<section class="page">
+<h2>Q3 · Prompt evolution <span class="marks">20 marks</span></h2>
+<h3>① Initial prompt (47 words, fresh session, evidence pack pasted below)</h3>
+<div class="prompt">I've pasted FreshNest's customer data (180 customers) and five company documents below. Analyse why so many customers don't make a second purchase within 60 days. Give me the three most important findings with numbers, the main limitations of the data, and what FreshNest should do about it.</div>
+<h3>Output excerpt <span class="wc">(95 words; full output ≈ 900 words)</span></h3>
+<div class="out">"1. The reorder recommendation is wrongly timed for most customers, and those customers come back much less […] For 107 of 180 customers (59%), the recommendation is more than 10 days away from their estimated consumption. Repurchase rates: 64% (47/73) when the timing is within 10 days, against 45% (48/107) when it isn't. […] 2. Packaging problems cut the repurchase rate by more than a third […] Customers with both an issue and a wrongly timed reorder repurchased at 15% (4/26). […] A simple statistical test says the three main gaps are unlikely to be chance (p &lt; 0.01)"</div>
+<h3>② Two specific weaknesses — verified against the 180 rows</h3>
+<table><tr><th style="width:24%">Weakness</th><th>Evidence check (Python recompute)</th><th style="width:26%">Why it matters</th></tr>
+<tr><td><b>W1 · Calculation &amp; reproducibility</b></td><td>"15% (4/26)" is mislabelled: 4/26 is <i>no cadence choice</i> + issue + mistimed; the stated label gives 11/36 = 30.6%. "p &lt; 0.01" is asserted with no test shown; the ±10-day timing gap actually has p = 0.010, and the ±10 cut-off is arbitrary — at ±7 d the all-customer gap falls from 19.5 to 9.6 pts (p = 0.24).</td><td>The headline finding is not reproducible as stated; a ₹11 lakh decision (Doc C) cannot rest on a cut-off chosen after seeing the data.</td></tr>
+<tr><td><b>W2 · Scope &amp; decision usefulness</b></td><td>≈ 900 words with 3 findings + 4 extra patterns + 8 limitations + a full 3-arm pilot; no document letters; causal verbs ("packaging problems <i>cut</i> the repurchase rate", discounts "don't <i>lead to</i>") despite observational data.</td><td>Q1 needs exactly three bounded findings; causal wording would overstate what a non-randomized dataset can show.</td></tr></table>
+<h3>③ Improved prompt — Six-Prompt Formula (exact text p. 6)</h3>
+<table><tr><th style="width:20%">Element</th><th>What we specified · targets</th></tr>
+<tr><td>Role</td><td>Senior customer-retention analyst advising FreshNest leadership</td></tr>
+<tr><td>Context</td><td>Refill brand, weak 60-day repurchase; diagnosis feeds one testable pilot (Doc A); limits from Docs C–D</td></tr>
+<tr><td>Objective</td><td>Diagnose only — no pilot or recommendations (fixes W2)</td></tr>
+<tr><td>Constraints</td><td>Evidence only; "not in evidence"; no p-values unless test + inputs shown (fixes W1)</td></tr>
+<tr><td>Evidence grounding</td><td>Every rate k/n with <i>every filter named in its label</i>; gap in pts; doc letter per non-data claim; format example</td></tr>
+<tr><td>Output structure</td><td>≤ 200 words, 4 fixed headings, exactly 3 findings, ≥ 2 evidence types</td></tr>
+<tr><td>Quality checks</td><td>Recompute; subgroups sum to parent; flag n &lt; 20; any cut-off justified and re-checked at a second cut-off; banned causal verbs</td></tr></table>
+<p class="small">Six techniques applied: context · example of a good finding · output constraints · numbered steps · think-first checks before answering · defined role.</p>
+<h3>④ Improved result (excerpt)</h3>
+<div class="out" id="v2out">[V2 run in progress at time of rendering — excerpt to be inserted after team verification.]</div>
+<p class="small"><b>What became more reliable / what we still corrected:</b> see note in assurance report; final validated Q1 on p. 2 (Finding 3 rebuilt on the 131 customers without a cadence choice, robust across ±5/±7/±10/±15 d).</p>
+<div class="foot"><span>Group 23 · Case 07 FreshNest</span><span>Page 3 of 6</span></div>
+</section>
+
+<section class="page">
+<h2>Q4 · Multi-perspective decision challenge <span class="marks">20 marks</span></h2>
+<p class="small"><b>Observable AI workflow:</b> ① four <b>separate</b> fresh sessions, one per executive, each given the evidence pack, our validated findings and its own success question, scoring A/B/C before seeing any other view → ② a fifth session listed disagreements, ran cross-challenges and built a consensus matrix → ③ team validated every number and score total (corrections ✎).</p>
+<table><tr><th>Perspective</th><th>Success question</th><th class="c">Ranking</th><th>Distinct argument (validated)</th></tr>
+<tr><td>Growth Director</td><td>Most kept second purchases ≤ 60 d and plan uptake?</td><td class="c">A &gt; C &gt; B</td><td>A: 40/49 vs 34/84; B reaches only 52/180; would switch to C if randomized lift vanishes</td></tr>
+<tr><td>Finance Head</td><td>Lift without paying customers who'd reorder anyway; ₹11 L, ≤ ₹65?</td><td class="c">A &gt; B &gt; C</td><td>C's incentive leaks to well-timed customers already at 31/52 = 59.6%; only role to rank B over C</td></tr>
+<tr><td>Operations Head</td><td>Runs on today's packaging; supports pause; no rise in issue rate?</td><td class="c">A &gt; C &gt; B</td><td>C lightest workload (scored 19 vs A 20); B ships replacements in the same packaging</td></tr>
+<tr><td>Sustainability Lead</td><td>More refill adoption, less early/unused/damaged waste?</td><td class="c">A &gt; C &gt; B</td><td>Pause/skip prevents early refills (Doc B1); would prefer C if it matches A with fewer early refills</td></tr></table>
+<h3>Three genuinely different levers · consensus matrix (1–5, 5 = best)</h3>
+<table><tr><th>Option</th><th class="c">Impact</th><th class="c">Cost</th><th class="c">Feasibility</th><th class="c">Risk (5 = low)</th><th class="c">Refill-timing fit*</th><th class="c">Total</th><th>Evidence note</th></tr>
+<tr><td><b>A · Flexible cadence plan</b> (timing &amp; control)</td><td class="c">4</td><td class="c">4</td><td class="c">4 ✎</td><td class="c">3</td><td class="c">5</td><td class="c"><b>20</b></td><td>+41.2 pts association; no incentive; pause capability not in evidence</td></tr>
+<tr><td><b>B · Verified packaging-issue recovery</b> (trust)</td><td class="c">2</td><td class="c">3</td><td class="c">4</td><td class="c">3</td><td class="c">2</td><td class="c">14</td><td>52/180 reach; −22.8 pts; recovery effect untested; ≤ ₹65</td></tr>
+<tr><td><b>C · Segmented reminder ± capped incentive</b> (timing nudge / price)</td><td class="c">3</td><td class="c">3</td><td class="c">4</td><td class="c">3</td><td class="c">4</td><td class="c">17</td><td>−20.7 pts mistiming gap (no-choice customers); incentive leakage risk</td></tr></table>
+<p class="small">*Case-specific criterion: does the refill reach the customer when the pack actually runs out (Doc B1)? Individual role totals: A 21/20/20/19, B 16/17/15/14, C 17/16/19/16 (Growth/Finance/Ops/Sustainability).</p>
+<h3>Cross-perspective challenges</h3>
+<ul><li><b>Finance → Growth:</b> Growth's A-impact of 5 assumes customers subscribed; acceptance is not in evidence (40/49 counts offers <i>shown</i>) → impact cut to 4; pilot must randomize and record acceptance.</li>
+<li><b>Operations → all (attacking A):</b> plan refills ship in the same packaging (52/180 issues); pause/skip capability not in evidence → A feasibility 4, B becomes a mandatory guardrail.</li>
+<li><b>Growth → Finance:</b> Finance's B-cost of 4 assumes a replacement cost not in evidence → cost 3, credit capped at ₹65 average (Doc C).</li>
+<li><b>Team → AI ✎:</b> Ops claimed A "already meets" Doc D — Doc D sets a requirement; pause capability is unverified → made a launch gate. Synthesis said the eligible population is "not in evidence" — the <i>share</i> is (76/180); only absolute volume is missing.</li></ul>
+<div class="okbox"><b>Synthesis — why A wins:</b> it is the only option that answers all four success questions: largest observed gap (Growth), no discount leakage (Finance), within Doc D with no redesign (Operations), pause/skip prevents early-refill waste (Sustainability). <b>Strongest case against A:</b> the gap may be selection — so the pilot randomizes, and C's timed reminder runs as its own arm to test whether timing alone delivers the lift more cheaply. <b>B</b> is not dropped: it becomes the mandatory path for issue customers. Packaging redesign stays a later-stage option (Doc D).</div>
+<div class="foot"><span>Group 23 · Case 07 FreshNest</span><span>Page 4 of 6</span></div>
+</section>
+
+<section class="page">
+<h2>Q5 · Adversarial critique &amp; change log <span class="marks">15 marks</span></h2>
+<p class="small"><b>Method:</b> a fresh Claude session acted as skeptical reviewer of our draft v1 (one 2-arm test, issue customers excluded, assumed 2,000 eligible, "scale if ≥ 10 pts"), checking calculations, unsupported claims, causal overreach, document contradictions, excluded segments, financial logic, feasibility and risks (exact prompt p. 6). It returned 6 criticisms; we re-ran each number in Python before deciding.</p>
+<table><tr><th>#</th><th style="width:27%">Reviewer's criticism</th><th style="width:33%">Our evidence check</th><th>Decision → change</th></tr>
+<tr><td>1</td><td>v1 has one option; "+39 pts" is observational, so it cannot separate timed reminders from the plan (Doc E wants alternatives)</td><td>Confirmed: choose-cadence cells by channel × issue hold 4–16 customers; social 13/13</td><td><span class="tag acc">ACCEPTED</span> 3 arms: control / reminder-only / plan; +39 called an association</td></tr>
+<tr><td>2</td><td>Budget "800 issue cases × ₹65" is wrong; volumes and ₹3 L unsourced; no break-even (Doc C)</td><td>Confirmed: 29% of 2,000 = 580, not 800; chained from the eligible share it is ≈ 1,368 cases (₹0.89 L)</td><td><span class="tag acc">ACCEPTED</span> size set by power (470/arm), screening chain 3,339 → 965 cases; break-even formula; fixed cost a labelled reserve + launch gate</td></tr>
+<tr><td>3</td><td>Excluding issue customers ignores 11/14 vs 8/38 and makes recovery spend unlearnable</td><td>Numbers correct, but 11/14 is n &lt; 20 and non-random; Doc B2 says trust must be repaired first</td><td><span class="tag part">PARTLY</span> issue customers stay out of the primary target; after verified recovery they are randomized recovery-only vs recovery + plan</td></tr>
+<tr><td>4</td><td>60-day KPI penalizes the plan: 12/76 eligible default to a 60-day cadence; 10/12 already reorder ≤ 60 d</td><td>Confirmed (12 customers, 10/12)</td><td><span class="tag part">PARTLY</span> keep 60-day primary (case definition, comparable with 52.6%); default = exact consumption days, not the 30/45/60 grid; 90-day readout pre-registered; 60-d null + 90-d positive = revise, not stop</td></tr>
+<tr><td>5</td><td>34/76 eligible are marketplace buyers who may not recognise a direct offer (Doc B3); add in-pack QR</td><td>Confirmed 34/76</td><td><span class="tag part">PARTLY</span> stratify by channel, consent gate, brand-recognition line, marketplace reported separately; in-pack QR rejected for now (fulfilment change not in evidence → later stage, Doc D)</td></tr>
+<tr><td>6</td><td>Plan shipments at a 29% issue rate could undo the lift; no trigger set</td><td>Confirmed 52/180 = 28.9%</td><td><span class="tag acc">ACCEPTED</span> guardrail + stop rule: plan-shipment issue rate ≤ control; auto-recovery on every issue</td></tr></table>
+<h3>Change log — draft v1 → final (p. 1)</h3>
+<table><tr><th>Element</th><th>v1</th><th>Final</th><th class="c">Trigger</th></tr>
+<tr><td>Design</td><td>2 arms, plan vs control</td><td>3 arms: control / reminder-only / plan, 1:1:1, stratified by channel × product</td><td class="c">#1</td></tr>
+<tr><td>Budget</td><td>"2,000 eligible", "800 cases", ₹3 L — unsourced; ≈ ₹3.5 L</td><td>Power-based 1,410 → 3,339 screened → 965 cases → ₹0.31–0.63 L + ₹3–6 L reserve = ₹3.3–6.6 L; break-even formula</td><td class="c">#2</td></tr>
+<tr><td>Issue customers</td><td>Excluded, recovery unmeasured</td><td>Recovery first, then randomized recovery vs recovery + plan</td><td class="c">#3</td></tr>
+<tr><td>Decision rule</td><td>Scale ≥ 10 pts; stop &lt; 5</td><td>Scale ≥ 10 pts with CI &gt; break-even and guardrails; revise / stop rules incl. 90-day readout</td><td class="c">#2 #4</td></tr>
+<tr><td>Guardrails</td><td>Margin only</td><td>+ plan-shipment issue rate, returns/cancellations ≤ control</td><td class="c">#6</td></tr></table>
+<div class="note"><b>Uncertainty that remains:</b> how large — and how causal — the cadence effect is for the target. Choose-cadence customers meeting the same filters reorder at 24/27 = 88.9% vs 52.6%, but the offer was not randomized. Contribution margin per order is also not in evidence, so the break-even lift cannot be fixed until Finance supplies it. The pilot is designed to answer both.</div>
+<div class="foot"><span>Group 23 · Case 07 FreshNest</span><span>Page 5 of 6</span></div>
+</section>
+
+<section class="page">
+<h2>Appendix · Exact prompts &amp; compact calculations <span class="marks">p. 6</span></h2>
+<h3>Exact improved prompt (Q3) — evidence pack pasted below it</h3>
+<div class="prompt" id="v2prompt"></div>
+<h3>Exact critique prompt (Q5) — draft v1 and evidence pack pasted below it</h3>
+<div class="prompt" id="cprompt"></div>
+<h3>Compact calculation appendix (all from the 180 rows; 95% Wilson CIs)</h3>
+<div class="two"><table><tr><th>Group</th><th class="num">k / n</th><th class="num">Rate</th><th class="num">95% CI</th></tr>
+<tr><td>All customers</td><td class="num">95/180</td><td class="num">52.8%</td><td class="num">45.5–59.9</td></tr>
+<tr><td>Choose cadence</td><td class="num">40/49</td><td class="num">81.6%</td><td class="num">68.6–90.0</td></tr>
+<tr><td>Fixed 30-day</td><td class="num">21/47</td><td class="num">44.7%</td><td class="num">31.4–58.8</td></tr>
+<tr><td>Not offered</td><td class="num">34/84</td><td class="num">40.5%</td><td class="num">30.6–51.2</td></tr>
+<tr><td>Packaging issue / none</td><td class="num">19/52 · 76/128</td><td class="num">36.5 · 59.4%</td><td class="num">24.8–50.1 · 50.7–67.5</td></tr>
+<tr><td>No-choice, timing ±7 / off</td><td class="num">25/45 · 30/86</td><td class="num">55.6 · 34.9%</td><td class="num">41.2–69.1 · 25.7–45.4</td></tr>
+<tr><td>Discount 20% / 30%</td><td class="num">36/58 · 24/51</td><td class="num">62.1 · 47.1%</td><td class="num">49.2–73.4 · 34.1–60.5</td></tr>
+<tr><td>Primary target</td><td class="num">40/76</td><td class="num">52.6%</td><td class="num">41.6–63.5</td></tr></table>
+<div class="small"><p><b>Gaps (unrounded):</b> 0.8163 − 0.4048 = 41.2 pts; 0.5938 − 0.3654 = 22.8; 0.5556 − 0.3488 = 20.7. Timing sensitivity (no-choice, n = 131): ±5 14.7 · ±7 20.7 · ±10 31.9 · ±15 28.9 pts.</p>
+<p><b>Adjusted check:</b> logistic model on all 180 (offer, issue, returned, discount, delay, satisfaction, consumption &gt;60, timing, channel, product): choose-cadence OR 10.6 (z = 4.5); issue OR 0.32 (z = −2.8); discount per 10 pts OR 1.24 (z = 1.3, n.s.).</p>
+<p><b>Sample size per arm</b> = [z<sub>α/2</sub>√(2p̄(1−p̄)) + z<sub>β</sub>√(p₁(1−p₁)+p₂(1−p₂))]² ÷ (p₂−p₁)²; p₁ = 0.526, p₂ = 0.626, α = 0.025, power 0.80 → 463 → <b>470</b>.</p>
+<p><b>Spend:</b> 1,410 ÷ (76/180) = 3,339 screened; × 52/180 = 965 issue cases; × 0.5–1.0 × ₹65 = ₹31,362–62,725; + ₹3–6 L reserve → <b>₹3.31–6.63 L</b> ≤ ₹11 L. Avg incentive: ₹0 (arms P, R); ≤ ₹65 per verified case.</p>
+<p><b>Break-even lift (pts)</b> = 100 × variable cost per treated customer ÷ contribution margin per order (margin not in evidence).</p></div></div>
+<div class="foot"><span>Group 23 · Case 07 FreshNest</span><span>Page 6 of 6</span></div>
+</section>
+<script>
+const V2P="ROLE: You are a senior customer-retention analyst preparing a diagnosis for FreshNest's leadership.\nCONTEXT: FreshNest sells concentrated refills; first orders grow, but many customers do not buy again within 60 days. Leadership will use your diagnosis to design one testable replenishment pilot, not a rollout (Doc A). Pilot limits: INR 11 lakh, average incentive <= INR 65 (Doc C); no blanket 30% discount, pause and cadence change required, no packaging redesign (Doc D). Evidence below: 180 synthetic customer records + data dictionary, Documents A-E.\nOBJECTIVE: Identify the observable patterns most associated with not buying again within 60 days. Diagnose only - no pilot, no recommendations.\nCONSTRAINTS: Use only the evidence below; write \"not in evidence\" for anything missing. No p-values or \"significant\" unless you show the test and its inputs.\nEVIDENCE GROUNDING: Show every rate as k/n = % and name every filter in its label (e.g. \"no cadence choice AND packaging issue\"). Each finding compares >= 2 groups and gives the gap in percentage points. Cite a document letter for every non-data claim. Format example (format only, not a finding): \"Website 36/64 = 56.3% vs Marketplace 36/76 = 47.4% (-8.9 pts) - data; Doc B point 3 (directional).\"\nSTEPS (in order, then write): 1) Overall rate; check k and n add to 180. 2) Rates by subscription_offer, packaging_issue, first_order_discount_pct, acquisition_channel, and by |recommended_reorder_days - estimated_consumption_days|. 3) If you use a cut-off (e.g. +/-7 days), say why and re-check at one other cut-off; keep a finding only if its direction holds. 4) Pick the three comparisons most useful for a pilot decision; check each against Documents B-D.\nOUTPUT (max 200 words, these four headings): 1. Three findings - comparison | n | rates | gap (pts) | evidence types (data / research / constraint); >= 2 types overall. 2. Two material dataset limitations. 3. One tempting causal claim the evidence does not justify, and why. 4. Data-definition issues that could change the decision.\nQUALITY CHECKS (before answering): recompute every count from the rows; subgroups must add to their parent; flag n < 20; never write \"causes\", \"drives\", \"cuts\" or \"leads to\" for an observational pattern.";const CP="ROLE: Act as a skeptical reviewer for FreshNest's leadership. You did not write this pilot and your job is to find what is wrong with it, not to praise it.\nTASK: Check DRAFT PILOT v1 (below) against the evidence pack (Documents A-E and the 180-row dataset). Check specifically: (1) calculation errors, (2) unsupported claims and assumptions presented as facts, (3) causal overreach, (4) contradictions with Documents A-E, (5) excluded or mistreated segments, (6) financial logic against the INR 11 lakh limit and the INR 65 average incentive cap, (7) operational feasibility, (8) unmanaged risks.\nOUTPUT: Exactly 6 criticisms, most decision-critical first. For each: the claim you challenge (quote it) | the evidence (data n/denominator or document letter) | why it matters for the decision | the specific change you recommend. Do not write generic points such as \"more data is needed\" unless you name the missing data and how it would change the decision. Max 350 words. Do not rewrite the whole pilot.";
+document.getElementById('v2prompt').textContent = V2P; document.getElementById('cprompt').textContent = CP;
+</script>
+</body></html>
